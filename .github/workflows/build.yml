@@ -105,13 +105,14 @@ jobs:
       - name: Configure and Build Rumigram
         run: |
           cd %TBUILD%\%REPO_NAME%\Telegram
-          call configure.bat x64 ${{ matrix.qt }} -D TDESKTOP_API_ID=2040 -D TDESKTOP_API_HASH=b18441a1ff607e10a989891a5462e627 -D CMAKE_CONFIGURATION_TYPES=Release
-          cmake --build ..\out --config Release --parallel
+          call configure.bat x64 ${{ matrix.qt }} -D TDESKTOP_API_ID=2040 -D TDESKTOP_API_HASH=b18441a1ff607e10a989891a5462e627 -D CMAKE_CONFIGURATION_TYPES=Debug
+          cmake --build ..\out --config Debug --parallel
 
       - name: Move artifact
         run: |
-          set OUT=%TBUILD%\%REPO_NAME%\out\Release
+          set OUT=%TBUILD%\%REPO_NAME%\out\Debug
           mkdir artifact
+          copy %OUT%\Telegram.exe artifact\Rumigram.exe
           copy %OUT%\*.exe artifact\
 
       - name: Upload artifact
